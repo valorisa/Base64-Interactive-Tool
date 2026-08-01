@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "base64-interactive-tool"
+version = "2.0.0-dev"
+description = "Interactive Base64 encoder/decoder written in pure Python."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+
+authors = [
+    { name = "valorisa" }
+]
+
+keywords = [
+    "base64",
+    "cli",
+    "interactive",
+    "python",
+    "encoding"
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[project.scripts]
+base64-tool = "base64_tool.cli:main"
+
+[tool.setuptools]
+packages = ["base64_tool"]
