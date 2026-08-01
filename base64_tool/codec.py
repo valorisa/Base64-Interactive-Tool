@@ -1,0 +1,3 @@
+"""
+Encoding and decoding primitives.
+"""
