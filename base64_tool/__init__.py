@@ -1,7 +1,19 @@
 """
 Base64 Interactive Tool.
 
-Small, dependency-free Base64 encoder/decoder.
+A small, testable and maintainable Base64 encoder/decoder.
 """
 
-__version__ = "2.0.0-dev"
+from .exceptions import (
+    Base64ToolError,
+    InvalidBase64Error,
+    InvalidEncodingError,
+    InvalidFileError,
+)
+
+__all__ = [
+    "Base64ToolError",
+    "InvalidBase64Error",
+    "InvalidEncodingError",
+    "InvalidFileError",
+]
