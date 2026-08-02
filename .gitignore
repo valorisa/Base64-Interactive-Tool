@@ -25,3 +25,20 @@ digest.txt
 
 # macOS
 .DS_Store
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Test artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Ruff
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
