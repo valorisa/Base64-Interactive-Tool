@@ -50,6 +50,7 @@ jobs:
       - name: Compile Python sources
         run: |
           python -m compileall -q base64_tool
+          echo "✅ Compilation syntaxique réussie pour base64_tool"
 
       - name: Lint with Ruff
         run: |
