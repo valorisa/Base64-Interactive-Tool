@@ -4,16 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "base64-interactive-tool"
-version = "2.0.0-dev"
+version = "2.0.0.dev0"
 description = "A small, elegant and maintainable Base64 encoder/decoder."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
-
+license = "MIT"
 authors = [
     { name = "valorisa" }
 ]
-
 keywords = [
     "base64",
     "cli",
@@ -28,7 +26,6 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -44,9 +41,10 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
+    "build>=1.2",
     "pytest>=9",
     "pytest-cov>=7",
-    "ruff>=0.12",
+    "ruff>=0.12 ; platform_system != 'Android'",
 ]
 
 [project.urls]
