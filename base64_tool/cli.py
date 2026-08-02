@@ -9,6 +9,7 @@ import sys
 
 from .codec import decode_text, encode_text
 from .exceptions import Base64ToolError
+from .files import decode_file, encode_file
 
 
 def cmd_encode(args: argparse.Namespace) -> int:
@@ -23,9 +24,31 @@ def cmd_decode(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_encode_file(args: argparse.Namespace) -> int:
+    """Encode a text file to Base64."""
+    encode_file(
+        args.source,
+        args.destination,
+        encoding=args.encoding,
+    )
+    return 0
+
+
+def cmd_decode_file(args: argparse.Namespace) -> int:
+    """Decode a Base64 file."""
+    decode_file(
+        args.source,
+        args.destination,
+        encoding=args.encoding,
+    )
+    return 0
+
+
 COMMANDS = {
     "encode": cmd_encode,
     "decode": cmd_decode,
+    "encode-file": cmd_encode_file,
+    "decode-file": cmd_decode_file,
 }
 
 
@@ -41,12 +64,33 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
     )
 
+    text_commands = {
+        "encode",
+        "decode",
+    }
+
     for name in COMMANDS:
         sub = subparsers.add_parser(name)
-        sub.add_argument("text")
+
+        if name in text_commands:
+            sub.add_argument(
+                "text",
+                help="Input text.",
+            )
+        else:
+            sub.add_argument(
+                "source",
+                help="Input file.",
+            )
+            sub.add_argument(
+                "destination",
+                help="Output file.",
+            )
+
         sub.add_argument(
             "--encoding",
             default="utf-8",
+            help="Text encoding (default: utf-8).",
         )
 
     return parser
@@ -60,7 +104,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         return COMMANDS[args.command](args)
     except Base64ToolError as exc:
-        print(f"Error: {exc}", file=sys.stderr)
+        print(exc, file=sys.stderr)
         return 1
 
 
