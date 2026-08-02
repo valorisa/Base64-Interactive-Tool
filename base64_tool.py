@@ -5,7 +5,6 @@ import base64
 import binascii
 import sys
 
-
 # --- NOYAU DE TRAITEMENT (Pure Logic) ---
 
 
