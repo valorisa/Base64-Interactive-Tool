@@ -4,11 +4,13 @@ from base64_tool.interactive import run
 
 
 def test_encode(monkeypatch, capsys):
-    answers = iter([
-        "e",
-        "",
-        "hello",
-    ])
+    answers = iter(
+        [
+            "e",
+            "",
+            "hello",
+        ]
+    )
 
     monkeypatch.setattr(
         builtins,
@@ -24,11 +26,13 @@ def test_encode(monkeypatch, capsys):
 
 
 def test_decode(monkeypatch, capsys):
-    answers = iter([
-        "d",
-        "",
-        "aGVsbG8=",
-    ])
+    answers = iter(
+        [
+            "d",
+            "",
+            "aGVsbG8=",
+        ]
+    )
 
     monkeypatch.setattr(
         builtins,
@@ -56,11 +60,13 @@ def test_invalid_mode(monkeypatch):
 
 
 def test_invalid_base64(monkeypatch):
-    answers = iter([
-        "d",
-        "",
-        "%%%%",
-    ])
+    answers = iter(
+        [
+            "d",
+            "",
+            "%%%%",
+        ]
+    )
 
     monkeypatch.setattr(
         builtins,

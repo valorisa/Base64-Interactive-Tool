@@ -26,9 +26,7 @@ def encode_text(
     try:
         raw = text.encode(encoding)
     except LookupError as exc:
-        raise InvalidEncodingError(
-            f"Unknown encoding: {encoding}"
-        ) from exc
+        raise InvalidEncodingError(f"Unknown encoding: {encoding}") from exc
 
     return base64.b64encode(raw).decode("ascii")
 
@@ -45,13 +43,9 @@ def decode_text(
     try:
         raw = base64.b64decode(data, validate=validate)
     except (binascii.Error, ValueError) as exc:
-        raise InvalidBase64Error(
-            "Invalid Base64 data."
-        ) from exc
+        raise InvalidBase64Error("Invalid Base64 data.") from exc
 
     try:
         return raw.decode(encoding)
     except LookupError as exc:
-        raise InvalidEncodingError(
-            f"Unknown encoding: {encoding}"
-        ) from exc
+        raise InvalidEncodingError(f"Unknown encoding: {encoding}") from exc

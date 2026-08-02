@@ -5,7 +5,9 @@ import base64
 import binascii
 import sys
 
+
 # --- NOYAU DE TRAITEMENT (Pure Logic) ---
+
 
 def encode_base64(data: str) -> str:
     """Encode une chaîne UTF-8 en Base64."""
@@ -16,10 +18,13 @@ def encode_base64(data: str) -> str:
 def decode_base64(data: str) -> str:
     """Décode une chaîne Base64 vers du texte UTF-8.
 
-    Nettoie tous les espaces et retours à la ligne internes/externes avant décodage.
+    Nettoie tous les espaces et retours à la ligne internes/externes
+    avant décodage.
 
     Raises:
-        ValueError: Si le payload n'est pas du Base64 valide ou n'est pas du texte UTF-8.
+        ValueError:
+            Si le payload n'est pas du Base64 valide ou n'est pas
+            du texte UTF-8.
     """
     cleaned_data = "".join(data.split())
 
@@ -34,11 +39,13 @@ def decode_base64(data: str) -> str:
 
 # --- ANALYSE DES ARGUMENTS (Strict Mode Parser) ---
 
+
 def parse_mode(args: list[str]) -> str | None:
     """Retourne 'encode', 'decode' ou None (si aucun flag fourni).
 
     Raises:
-        ValueError: Si des options inconnues ou contradictoires sont fournies.
+        ValueError:
+            Si des options inconnues ou contradictoires sont fournies.
     """
     valid_encode = {"-e", "--encode"}
     valid_decode = {"-d", "--decode"}
@@ -62,18 +69,20 @@ def parse_mode(args: list[str]) -> str | None:
 
 # --- INTERFACE UTILISATEUR (CLI & Mode Hybride) ---
 
+
 def run_cli() -> None:
-    """Point d'entrée principal basculant entre mode TTY interactif et Pipe Unix."""
+    """Point d'entrée principal."""
+
     try:
         explicit_mode = parse_mode(sys.argv[1:])
     except ValueError as error:
         print(f"Erreur : {error}", file=sys.stderr)
         sys.exit(2)
 
-    # 1. Mode Pipe / Redirection (Non-interactif)
     if not sys.stdin.isatty():
         input_data = sys.stdin.read()
-        mode = explicit_mode or "encode"  # Encodage par défaut en pipe si aucun flag
+        mode = explicit_mode or "encode"
+
         try:
             if mode == "decode":
                 print(decode_base64(input_data), end="")
@@ -82,12 +91,11 @@ def run_cli() -> None:
         except ValueError as err:
             print(f"Erreur : {err}", file=sys.stderr)
             sys.exit(1)
+
         return
 
-    # 2. Mode Terminal Humain (TTY)
     mode = explicit_mode
 
-    # Si aucun flag explicite n'a été fourni, afficher le menu interactif
     if mode is None:
         print("=== Base64 Interactive Tool (Text UTF-8) ===")
         print("1. Encoder du texte en Base64")
@@ -95,9 +103,10 @@ def run_cli() -> None:
         print("q. Quitter")
 
         choice = input("\nChoix (1/2/q) : ").strip().lower()
+
         if choice == "q":
             sys.exit(0)
-        elif choice == "1":
+        if choice == "1":
             mode = "encode"
         elif choice == "2":
             mode = "decode"
@@ -106,6 +115,7 @@ def run_cli() -> None:
             sys.exit(1)
 
     text = input("Entrez la chaîne à traiter : ")
+
     try:
         if mode == "encode":
             result = encode_base64(text)

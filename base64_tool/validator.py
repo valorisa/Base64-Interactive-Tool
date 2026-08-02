@@ -43,9 +43,7 @@ def require_encoding(name: str) -> None:
     try:
         codecs.lookup(name)
     except LookupError as exc:
-        raise InvalidEncodingError(
-            f"Unknown encoding: {name}"
-        ) from exc
+        raise InvalidEncodingError(f"Unknown encoding: {name}") from exc
 
 
 def require_text(value: object) -> None:

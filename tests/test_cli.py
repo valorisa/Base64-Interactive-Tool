@@ -33,13 +33,16 @@ def test_cli_encode_file(tmp_path: Path):
 
     source.write_text("hello", encoding="utf-8")
 
-    assert main(
-        [
-            "encode-file",
-            str(source),
-            str(destination),
-        ]
-    ) == 0
+    assert (
+        main(
+            [
+                "encode-file",
+                str(source),
+                str(destination),
+            ]
+        )
+        == 0
+    )
 
     assert destination.read_text(encoding="ascii") == "aGVsbG8="
 
@@ -50,13 +53,16 @@ def test_cli_decode_file(tmp_path: Path):
 
     source.write_text("aGVsbG8=", encoding="ascii")
 
-    assert main(
-        [
-            "decode-file",
-            str(source),
-            str(destination),
-        ]
-    ) == 0
+    assert (
+        main(
+            [
+                "decode-file",
+                str(source),
+                str(destination),
+            ]
+        )
+        == 0
+    )
 
     assert destination.read_text(encoding="utf-8") == "hello"
 
@@ -64,13 +70,16 @@ def test_cli_decode_file(tmp_path: Path):
 def test_cli_encode_missing_file(capsys, tmp_path: Path):
     destination = tmp_path / "output.b64"
 
-    assert main(
-        [
-            "encode-file",
-            str(tmp_path / "missing.txt"),
-            str(destination),
-        ]
-    ) == 1
+    assert (
+        main(
+            [
+                "encode-file",
+                str(tmp_path / "missing.txt"),
+                str(destination),
+            ]
+        )
+        == 1
+    )
 
     err = capsys.readouterr().err.strip()
 
@@ -83,13 +92,16 @@ def test_cli_decode_invalid_file(capsys, tmp_path: Path):
 
     source.write_text("%%%%", encoding="ascii")
 
-    assert main(
-        [
-            "decode-file",
-            str(source),
-            str(destination),
-        ]
-    ) == 1
+    assert (
+        main(
+            [
+                "decode-file",
+                str(source),
+                str(destination),
+            ]
+        )
+        == 1
+    )
 
     err = capsys.readouterr().err.strip()
 
