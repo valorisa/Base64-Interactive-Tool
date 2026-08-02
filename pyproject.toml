@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "base64-interactive-tool"
-version = "2.0.0.dev0"
+version = "2.0.0"
 description = "A small, elegant and maintainable Base64 encoder/decoder."
 readme = "README.md"
 requires-python = ">=3.11"
